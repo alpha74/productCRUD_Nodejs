@@ -93,7 +93,7 @@ app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
 
-mongoose.connect("mongodb+srv://admin:Cluster0Password@cluster0.3acfsnv.mongodb.net/crud-api?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://admin:<password>@cluster0.3acfsnv.mongodb.net/crud-api?retryWrites=true&w=majority")
 .then(() => {
 		console.log('Connected to MongoDB')
 }).catch((error) => {
