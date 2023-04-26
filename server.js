@@ -7,9 +7,7 @@ app.use(express.json())
 
 const Product = require('./models/productModel')
 
-
-
-// Routes
+// Routes ==========================================
 
 // GET server status
 app.get('/', (req, res) => {
@@ -65,6 +63,48 @@ app.put('/products/:id', async (req, res) => {
 		const updatedProduct = await Product.findById(id);  
 		
 		res.status(200).json(updatedProduct)
+	} catch(error) {
+		res.status(500).json({message: error.message})
+	}
+})
+
+
+// Update product quantity
+app.put('/products/quantity', async (req, res) => {
+	try {
+		const productList = req.body
+		
+		// Iterate on each product
+		for(var id in productList) {
+			console.log(productList[id]['productId'])
+			
+			try {
+				const findProduct = {productId: productList[id]['productId']}
+				const product = await Product.findOne(findProduct)
+				
+				// Update if product exists
+				if(product) {
+					const currQuantity = product['quantity']
+					console.log("Current Qty:", currQuantity)
+					
+					// Adding quantity
+					if(productList[id]['operation'] === 'add'){
+						const updateQty = { quantity: currQuantity + productList[id]['quantity'] }
+						
+						const updatedProduct = await Product.findOneAndUpdate(findProduct, updateQty)
+					}
+					// Subtracting quantity
+					else if(productList[id]['operation'] === 'subtract'){
+						const updateQty = { quantity: currQuantity - productList[id]['quantity'] }
+						const updatedProduct = await Product.findOneAndUpdate(findProduct, updateQty)
+					}
+				}
+			} catch(error) {
+				console.log(error.message)
+			}
+		}
+			
+		res.status(200).json({message: "Success"})
 	} catch(error) {
 		res.status(500).json({message: error.message})
 	}
