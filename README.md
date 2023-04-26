@@ -1,7 +1,10 @@
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/2560px-Node.js_logo.svg.png" height="100px" width="150px">
+
 ## CRUD app for Products
 
-A simple CRUD operation APIs defined for model `Product`
-Using Nodejs, ExpressJs and Mongoose
+- A simple CRUD operation APIs defined for model `Product`
+
+- Using Nodejs, ExpressJs and Mongoose
 
 ### Run dev
 
